@@ -2,7 +2,7 @@
 
 const deleteReducer = (state = [], action) => {
     switch(action.type) {
-        case 'FETCH_ITEMS':
+        case 'DELETE_ITEM':
             return action.payload
         default: 
             return state;

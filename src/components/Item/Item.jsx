@@ -3,6 +3,7 @@ function Item({ item }) {
     <div>
       <img src={item.image_url} alt="" />
       <p>{item.description}</p>
+      
     </div>
   );
 }
