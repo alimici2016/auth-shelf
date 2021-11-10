@@ -3,12 +3,27 @@ const { resetWarningCache } = require('prop-types');
 const { useReducer } = require('react');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * Get all of the items on the shelf
  */
-router.get('/', (req, res) => {
-  res.sendStatus(200); // For testing only, can be removed
+// this is actually /api/shelf
+router.get('/', rejectUnauthenticated, (req, res) => {
+  console.log(`in /api/shelf`);
+  let queryText = `SELECT * FROM "item";`;
+
+  pool
+    .query(queryText)
+    .then((response) => {
+      res.send(response.rows); // response.rows contains all the items
+    })
+    .catch((error) => {
+      console.log(`There was an error with the /api/shelf GET:`, error);
+      res.sendStatus(500); // there was an error
+    });
 });
 
 /**
