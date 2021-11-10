@@ -18,5 +18,6 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     shelfSaga(), //include it in rootSaga as well! Remember this!
+
   ]);
 }
