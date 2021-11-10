@@ -1,4 +1,6 @@
 const express = require('express');
+const { resetWarningCache } = require('prop-types');
+const { useReducer } = require('react');
 const pool = require('../modules/pool');
 const router = express.Router();
 
@@ -20,21 +22,29 @@ router.post('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-  // endpoint functionality
-  let id = req.params.id
-  let queryText = `
+  console.log('user is', req.user.id)
+  console.log('comparing to item user id', req.params.user_id)
+  if (req.user.id === req.params.user_id) {//We create a conditional that only allows users to delete things that they created?
+    let id = req.params.id //This our way of identifying the variable 'id' sent along with the route.
+    let queryText = `
   DELETE FROM "item"
   WHERE id = $1;`;
+    //queryText is sql text that we want to transfer over to pool.
+    let values = [id]
 
-  let values = [id]
-
-  pool.query(queryText, values)
-  .then(results => {
-    res.sendStatus(204)
-  }).catch(err => {
-    console.log(err)
-    res.sendStatus(500)
-  })
+    //Package the queryText and the id to have pool interact with the database for us 
+    //and execute the intended goal which in this case is to delete the data at id
+    pool.query(queryText, values)
+      .then(results => {
+        res.sendStatus(204)//if completed then we get a '204' which is thumbs up 
+      }).catch(err => {
+        console.log(err)
+        res.sendStatus(500)//if failed we get a '500'
+      })
+  } else {
+    res.sendStatus(403)
+  }
+  // endpoint functionality
 });
 
 /**
