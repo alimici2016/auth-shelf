@@ -12,13 +12,18 @@ function AddItemForm() {
         description: '',
         image_url: '',
     });
+    //will set local state to inputs passed in 
+    const handlePropertyChange =(event, property) => {
+        console.log('event happened', event);
+        setNewItem({...newItem, [property]: event.target.value})
+    };
 
     //function to send new item to the saga, then to the reducer
     const addNewItem = (event) => {
         event.preventDefault();
         dispatch({ type: 'ADD_ITEM', payload: newItem });
         console.log(`clicked, added a new item`);
-    }
+    };
 
     //ADD AN ITEM FORM 
 
