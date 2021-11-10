@@ -4,6 +4,9 @@ import { useState } from 'react';
 
 function AddItemForm() {
 
+    //initialize dispatch 
+    const dispatch = useDispatch();
+
     //hold new item in state
     const [newItem, setNewItem] = useState({
         description: '',
@@ -13,7 +16,7 @@ function AddItemForm() {
     //function to send new item to the saga, then to the reducer
     const addNewItem = (event) => {
         event.preventDefault();
-        dispatchEvent({ type: 'ADD_ITEM', payload: newItem });
+        dispatch({ type: 'ADD_ITEM', payload: newItem });
         console.log(`clicked, added a new item`);
     }
 
@@ -26,7 +29,15 @@ function AddItemForm() {
                 type="text"
                 value={newItem.description}
                 onChange={(event) => handlePropertyChange(event, 'description')}
-            > </input>
+            /> 
+            <input
+                placeholder="image_url"
+                type="text"
+                value={newItem.image_url}
+                onChange={(event) => handlePropertyChange(event, 'image_url')}
+            />
+            <button
+            type="submit">Add New Item!</button>
 
         </form>
 
