@@ -23,7 +23,8 @@ router.post('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   console.log('user is', req.user.id)
-  console.log('comparing to item user id', req.params.user_id)
+
+  console.log('comparing to item user id', req.params.id)
   if (req.user.id === req.params.user_id) {//We create a conditional that only allows users to delete things that they created?
     let id = req.params.id //This our way of identifying the variable 'id' sent along with the route.
     let queryText = `
