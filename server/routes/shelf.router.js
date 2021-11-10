@@ -21,6 +21,20 @@ router.post('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   // endpoint functionality
+  let id = req.params.id
+  let queryText = `
+  DELETE FROM "item"
+  WHERE id = $1;`;
+
+  let values = [id]
+
+  pool.query(queryText, values)
+  .then(results => {
+    res.sendStatus(204)
+  }).catch(err => {
+    console.log(err)
+    res.sendStatus(500)
+  })
 });
 
 /**
