@@ -13,11 +13,6 @@ function* addItem(action) {
     }
 }
 
-//watching for functions 
-function* shelfSaga() {
-    yield takeLatest('ADD_ITEM', addItem);
-}
-
 
 function* fetchItems() {
     try {
@@ -29,8 +24,11 @@ function* fetchItems() {
     }
 }
 
+//watching for functions 
 function* shelfSaga() {
     yield takeLatest('FETCH_ITEMS', fetchItems)
+    yield takeLatest('ADD_ITEM', addItem);
+
 }
 
 

@@ -29,7 +29,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  */
 router.post('/', (req, res) => {
   console.log('Req.body', req.body);
-  
+
+  const queryText = `
+  INSERT INTO item ("description", "image_url")
+  VALUES ($1, $2);
+  `;
+  pool.query(queryText)
+    .then(result => {
+      console.log('results', result.rows);
+      res.sendStatus(201);
+    })
+    .catch(error => {
+      console.log('error in query', error);
+      res.sendStatus(500);
+    })
   // endpoint functionality
 });
 
