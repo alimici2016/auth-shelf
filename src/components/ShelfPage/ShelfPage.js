@@ -18,6 +18,7 @@ function ShelfPage() {
       <h2>Shelf</h2>
       {shelf.map((item) => (
         <Item key={item.id} item={item} />
+       
       ))}
 
       <p>All of the available items can be seen here.</p>
