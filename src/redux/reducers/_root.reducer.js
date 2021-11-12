@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import deleteReducer from './Delete.reducer';
 import shelf from './shelf.reducer';
 
 
@@ -14,7 +13,6 @@ import shelf from './shelf.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  deleteReducer,
   shelf // contains all the items on the shelf for everybody
 });
 
